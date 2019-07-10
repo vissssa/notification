@@ -84,12 +84,8 @@ def create_by_one2one(data):
             content_id = content.id
             if content_id:
                 with db.auto_commit():
-                    if ',' in rec_id:
-                        rec_id_list = rec_id.split(',')
-                        for i in rec_id_list:
-                            db.session.add(Message(rec_id=int(i), content_id=content_id, status=Message.UNREAD))
-                    else:
-                        db.session.add(Message(rec_id=int(rec_id), content_id=content_id, status=Message.UNREAD))
+                    for i in rec_id:
+                        db.session.add(Message(rec_id=int(i), content_id=content_id, status=Message.UNREAD))
         return 0
     return 102
 

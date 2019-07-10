@@ -133,3 +133,4 @@ dmypy.json
 out
 gen
 local_config.py
+Pipfile.lock

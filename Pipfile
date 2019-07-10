@@ -11,6 +11,8 @@ sqlalchemy = "*"
 flask-sqlalchemy = "*"
 click = "*"
 mysqlclient = "*"
+gunicorn = "*"
+gevent = "*"
 
 [requires]
 python_version = "3.7"

@@ -61,17 +61,16 @@ from app.utils import row2list
 """
 
 
-def create_by_one2one(data):
+def create_by_one2one(send_id, rec_id, content, message_type, group):
     """
     创建一条私密消息，用于少量用户的流程通知
-    :param data: [send_id, rec_id, content, message_type, group]
-    :return: 创建成功
+    :param send_id: 发送者
+    :param rec_id: 接收者
+    :param content: 内容
+    :param message_type: 类型
+    :param group: 用户组
+    :return: code
     """
-    send_id = data.get('send_id')
-    rec_id = data.get('rec_id')
-    content = data.get('content')
-    message_type = data.get('type')
-    group = data.get('group')
     if not message_type:
         message_type = Content.PRIVATE
     if not group:

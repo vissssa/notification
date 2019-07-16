@@ -21,57 +21,43 @@ api = Blueprint('', __name__)
 @api.route('/', methods=['POST'])
 def create():
     """
-    Create a new user
+    创建站内信
     ---
     tags:
       - message
-    definitions:
-      - schema:
-          id: Group
-          properties:
-            name:
-             type: string
-             description: the group's name
     parameters:
       - in: body
-        name: body
         schema:
-          id: User
-          required:
-            - email
-            - name
           properties:
-            email:
+            send_id:
+              type: int
+              description: 发送者
+            rec_id:
+              type: int
+              description: 接收者
+            content:
               type: string
-              description: email for user
-            name:
-              type: string
-              description: name for user
-            address:
-              description: address for user
-              schema:
-                id: Address
-                properties:
-                  street:
-                    type: string
-                  state:
-                    type: string
-                  country:
-                    type: string
-                  postalcode:
-                    type: string
-            groups:
-              type: array
-              description: list of groups
-              items:
-                $ref: "#/definitions/Group"
+              description: 站内信内容
+            message_type:
+              type: int
+              description: 站内信类型
+            group:
+              type: int
+              description: 接收者小组
     responses:
-      201:
-        description: User created
+      0:
+        description: 发送成功
+      101:
+        description: 发送失败
     """
     data = request.get_json()
+    send_id = data.get('send_id')
+    rec_id = data.get('rec_id')
+    content = data.get('content')
+    message_type = data.get('type')
+    group = data.get('group')
     if data:
-        code = create_by_one2one(data)
+        code = create_by_one2one(send_id, rec_id, content, message_type, group)
     else:
         code = 101
     return json_detail_render(code=code)

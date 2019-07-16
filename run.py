@@ -15,7 +15,10 @@ app = create_app()
 
 @app.route("/spec")
 def spec():
-    return jsonify(swagger(app))
+    swag = swagger(app)
+    swag['info']['version'] = "0.1"
+    swag['info']['title'] = "Tcloud API"
+    return jsonify(swag)
 
 
 # 开发启动

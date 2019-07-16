@@ -30,20 +30,30 @@ def create():
         schema:
           properties:
             send_id:
-              type: int
+              type: integer
               description: 发送者
+              required: true
+              example: 1
             rec_id:
-              type: int
+              type: integer
               description: 接收者
+              required: true
+              example: 5
             content:
               type: string
               description: 站内信内容
+              required: true
+              example: 你被选中了
             message_type:
-              type: int
+              type: integer
               description: 站内信类型
+              required: true
+              example: public
             group:
-              type: int
+              type: integer
               description: 接收者小组
+              required: true
+              example: admin
     responses:
       0:
         description: 发送成功

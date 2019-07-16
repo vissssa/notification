@@ -6,8 +6,8 @@
 
 from flask import Blueprint, request
 
-from app.dao import create_by_one2one, get_all_message_by_user_id, get_10_message_by_user_id, change_status, \
-    get_all_read_message_by_user_id, get_all_unread_message_by_user_id
+from app.dao import (create_by_one2one, get_all_message_by_user_id, get_10_message_by_user_id, change_status,
+                     get_all_read_message_by_user_id, get_all_unread_message_by_user_id)
 from app.render import json_detail_render
 
 api = Blueprint('', __name__)
@@ -20,6 +20,55 @@ api = Blueprint('', __name__)
 
 @api.route('/', methods=['POST'])
 def create():
+    """
+    Create a new user
+    ---
+    tags:
+      - message
+    definitions:
+      - schema:
+          id: Group
+          properties:
+            name:
+             type: string
+             description: the group's name
+    parameters:
+      - in: body
+        name: body
+        schema:
+          id: User
+          required:
+            - email
+            - name
+          properties:
+            email:
+              type: string
+              description: email for user
+            name:
+              type: string
+              description: name for user
+            address:
+              description: address for user
+              schema:
+                id: Address
+                properties:
+                  street:
+                    type: string
+                  state:
+                    type: string
+                  country:
+                    type: string
+                  postalcode:
+                    type: string
+            groups:
+              type: array
+              description: list of groups
+              items:
+                $ref: "#/definitions/Group"
+    responses:
+      201:
+        description: User created
+    """
     data = request.get_json()
     if data:
         code = create_by_one2one(data)

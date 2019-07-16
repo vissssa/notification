@@ -11,7 +11,7 @@ from .views import api
 
 
 def create_app():
-    app = Flask('bluelog')
+    app = Flask(__name__)
     app.config.from_object('config')
 
     register_extensions(app)

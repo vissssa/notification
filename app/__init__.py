@@ -5,6 +5,7 @@
 """
 # import click
 from flask import Flask
+from flask_cors import CORS
 
 from .extenions import db
 from .views import api
@@ -13,6 +14,7 @@ from .views import api
 def create_app():
     app = Flask(__name__)
     app.config.from_object('config')
+    CORS(app)
 
     register_extensions(app)
     register_blueprints(app)
